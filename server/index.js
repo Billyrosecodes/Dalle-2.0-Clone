@@ -6,9 +6,10 @@ import connectDB from './mongodb/connect.js';
 import postRoutes from './routes/postRoutes.js';
 import dalleRoutes from './routes/dalleRoutes.js';
 
-dotenv.config();
+dotenv.config(); //access ENV from .env file
 
-const app = express();
+//middlewares
+const app = express(); // initialize app
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
@@ -19,10 +20,11 @@ app.get('/', async (req, res) => {
     res.send('Hello from DALL-E!');
 })
 
+//run server, can fail so use async
 const startServer = async () => {
-    
+     
     try {
-        connectDB(process.env.MONGODB_URL);
+        connectDB(process.env.MONGODB_URL); //connect using ENV
         app.listen(8080, () => console.log(`Server has started on port http://localhost:8080`));
     } catch (error) {
         console.log(error);
@@ -30,4 +32,4 @@ const startServer = async () => {
      
 }
 
-startServer();
+startServer(); //initiate server starting
